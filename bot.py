@@ -3,14 +3,12 @@ import json
 import os
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-# ✅ Use environment variable for safety
-TOKEN = os.getenv('7601144256:AAEMtlbCPAYAwIr4KDBIrtirIWthXejMrvI', 'PASTE_YOUR_TOKEN_HERE_IF_LOCAL_DEV_ONLY')
+# ✅ Fixed environment variable usage
+TOKEN = os.getenv('BOT_TOKEN', '7601144256:AAEMtlbCPAYAwIr4KDBIrtirIWthXejMrvI')
 bot = telebot.TeleBot(TOKEN)
 
-# === File to store user data ===
 DATA_FILE = 'users.json'
 
-# === Load or initialize data ===
 if os.path.exists(DATA_FILE):
     with open(DATA_FILE, 'r') as f:
         users = json.load(f)
@@ -80,7 +78,6 @@ def referral_link(message):
 
 print("Bot is running...")
 
-# ✅ Safe polling that catches 409 and auto restarts
 try:
     bot.polling(none_stop=True, interval=0, timeout=30)
 except Exception as e:
